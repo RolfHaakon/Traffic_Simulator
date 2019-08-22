@@ -10,7 +10,7 @@ A traffic simulator in Java for the programming 3 course
 
 #### Working document will describe:
 
-#####Problem specification
+##### Problem specification
 * What is the problem? 
 * How will the program be used? 
 * How will the program behave?
@@ -23,7 +23,7 @@ A traffic simulator in Java for the programming 3 course
 
 1.Class design
 * What role do objects of the class perform?
-* What memeber fields do objects of this class need? public or private?
+* What member fields do objects of this class need? public or private?
 * What methods do objects of this class need? public or private?
 2. Method design:
 * What should its method signature be?
