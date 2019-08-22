@@ -9,7 +9,6 @@ public class Car {
     public void buildCar(){
         //spawn car
 
-
     }
 
     /** Method that initializes car movement */
