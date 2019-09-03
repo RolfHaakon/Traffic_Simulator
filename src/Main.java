@@ -1,10 +1,16 @@
+import java.util.Timer;
+
 public class Main {
     String fileName = "Untitled";
 
 
     public static void main(String[] args) {
-        System.out.println("Hello project");
+        Timer timer = new Timer();
+        timer.schedule(new Car(), 0, 1000);
+        Timer timer1 = new Timer();
+        timer1.schedule(new Robot(),0,3000);
     }
+
 
     /** Method for starting the simulation */
     public void start(){
