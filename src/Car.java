@@ -1,49 +1,48 @@
-import java.util.TimerTask;
-
-public class Car extends TimerTask {
+public class Car{
     int length;
     int width;
     int speed;
-    int position;
     int roadID;
     int roadLength;
-    int trafficLight;
     String carNr;
-    String color = "red";
+
 
     public Car(){
         this.length = 6;
         this.width = 3;
         this.speed = 1;
-        this.position = 0;
         this.roadID = 1;
         this.carNr = "1";
     }
 
-    /** Method for moving the car */
-    @Override
-    public void run() {
-        Road road = new Road();
-        roadLength = road.getLength();
-        Robot robot = new Robot();
-        trafficLight = robot.getCanDrive();
-        System.out.println("carrun trafficlight "+ trafficLight);
+    public int getRoadID() {
+        return roadID;
+    }
+
+    public void setRoadID(int roadID) {
+        this.roadID = roadID;
+    }
+
+
+    /** Method for moving the car
+     * @return*/
+    public int moveForward(int position) {
+        roadLength = 3;
         if ((position < roadLength) && (getSpeed() > 0)) {
+            System.out.println("Car "+carNr+" drives to length: "+ position+ " out of "+roadLength+ " on road: "+roadID);
             position = position + 1;
-            System.out.println("Car "+carNr+" drives to length: "+ position+ " out of "+roadLength+
-                    " on road: "+roadID);
             }
         else if (position == roadLength) {
-            //System.out.println("Car traffic light " + trafficLight);
-            if (trafficLight == 0) {
-                //System.out.println("Reached traffic light - Current status: Red");
+            if (!Robot.TL1) {
+                System.out.println("Waiting for traffic light - Current status: Red");
             }
-            else if (trafficLight == 1){
-                //System.out.println("Reached traffic light - Current status: Green");
-                position = 0;
-                roadID = 2;
+            else if (Robot.TL1){
+                System.out.println("Reached traffic light - Current status: Green");
+                position = position + 1;
             }
         }
+        System.out.println(position);
+        return position;
     }
 
     public int getSpeed() {

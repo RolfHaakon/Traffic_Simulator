@@ -6,9 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Timer timer = new Timer();
-        timer.schedule(new Car(), 0, 1000);
-        Timer timer1 = new Timer();
-        timer1.schedule(new Robot(),0,3000);
+        timer.schedule(new Pulse(),0,1000);
     }
 
 

@@ -1,30 +1,22 @@
 import java.util.TimerTask;
 
-public class Robot extends TimerTask {
-    private int canDrive;
+public class Robot {
 
-    public Robot() {
-        this.canDrive = 0;
-    }
+    static boolean TL1;
 
-    @Override
-    public void run() {
-        System.out.println("Initial traffic light "+ getCanDrive());
-        if (getCanDrive() == 0) {
-            setCanDrive(1);
-            System.out.println("Traffic light: Green");
+
+    public boolean change(boolean state) {
+        if (state == false) {
+            TL1 = false;
+            System.out.println("Robot turned TL1: Red");
+            state = true;
         }
-        else if (getCanDrive() == 1){
-            setCanDrive(0);
-            System.out.println("Traffic light: Red");
+        else if (state == true){
+            TL1 = true;
+            System.out.println("Robot turned TL1: Green");
+            state = false;
         }
+        return state;
     }
 
-    public int getCanDrive() {
-        return canDrive;
-    }
-
-    public void setCanDrive(int canDrive) {
-        this.canDrive = canDrive;
-    }
 }
