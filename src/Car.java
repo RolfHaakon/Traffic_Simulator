@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Car{
     int length;
     int width;
@@ -67,12 +69,6 @@ public class Car{
         this.speed = speed;
     }
 
-    /** Method for creating car */
-    public void buildCar(){
-        //spawn car
-
-    }
-
 
     /** Method that initializes car movement */
     public void start(){
@@ -82,11 +78,6 @@ public class Car{
     /** Method for stopping car */
     public void stop(){
         speed = 0;
-    }
-
-    /** Method for removing car */
-    public void removeCar(){
-        //remove car
     }
 
 }

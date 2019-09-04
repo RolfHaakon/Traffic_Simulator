@@ -4,7 +4,7 @@ public class Pulse extends TimerTask {
 
     private int ticker = 0;
     private boolean robotState = false;
-    //int carPos;
+
 
 
     @Override
