@@ -4,7 +4,7 @@ public class Pulse extends TimerTask {
 
     private int ticker = 0;
     private boolean robotState = false;
-    int carPos;
+    //int carPos;
 
 
     @Override
@@ -14,7 +14,8 @@ public class Pulse extends TimerTask {
             robotState = changeLight();
             ticker = 0;
         }
-        carPos = carMovement();
+        //carPos = carMovement();
+        carMovement();
     }
 
 
@@ -23,12 +24,8 @@ public class Pulse extends TimerTask {
         return robot.change(robotState);
     }
 
-    private int carMovement(){
+    private void carMovement(){
         Car car = new Car();
-        return car.moveForward(carPos);
-    }
-
-    public int getCarPos() {
-        return carPos;
+        car.moveForward();
     }
 }
