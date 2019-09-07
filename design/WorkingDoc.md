@@ -18,30 +18,16 @@
 The program is the prototype of a traffic simulator which aims to demonstrate traffic flow. The program consist of one 
 car, two roads, and a traffic light placed in between. Once the program starts the car will move from the beginning 
 of the first road towards the end, where the traffic light is placed. When the traffic light is green, the car will
-cross over to road 2, drive down to the end of the road, before starting all over again. 
-* What is the problem?  
-* How will the program be used?
-* How will the program behave?
+cross over to road 2, drive down to the end of the road, before being placed back at starting position on road 1. 
 
+This will act as a simulation which can highlight shortcomings in road design, visualizing points of congestion.
 
-##### Problem decomposition 
-(Using UML class diagrams)
-* What objects will be used and how will they interact?
-* Divide the problem into objects
-* The UML class diagram should answer the following design questions:
-
-1.Class design
-* What role do objects of the class perform?
-* What member fields do objects of this class need? public or private?
-* What methods do objects of this class need? public or private?
-2. Method design:
-* What should its method signature be?
-* What task will it perform? What algorithm will it use?
  
     
 ### For first part of project
 1. Produce a working document that illustrates your designs for approximately 4-6 classes – one of which will be the Main class that contains the main() method.
-2. The classes should be drawn in a UML class diagram – the diagram should include information about class names, member field access control, method access control and class relationships (you get marks for using the correct UML notation for these things)
-3. Pick at least 3 classes and start implementing them – include appropriate test classes that check and verify that these 3 production classes are working as expected - there is no need to create a test class for the Main class!
-4. You get marks for ensuring that your class code matches your UML class diagrams – there is no need to include the test classes in your UML class diagrams!
+2. The classes should be drawn in a UML class diagram – the diagram should include information about class names,
+ member field access control, method access control and class relationships (you get marks for using the correct UML notation for these things)
+3. Pick at least 3 classes and start implementing them – include appropriate test classes that check and verify that these 3 production classes
+ are working as expected - there is no need to create a test class for the Main class!
 

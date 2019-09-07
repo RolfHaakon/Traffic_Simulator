@@ -25,7 +25,7 @@ public class Pulse extends TimerTask {
     }
 
     private void carMovement(){
-        Car car = new Car();
+        Car car = new Car(1,1);
         car.moveForward();
     }
 }

@@ -1,5 +1,5 @@
 import java.util.TimerTask;
-
+/** The Robot class changes the traffic light state */
 public class Robot {
 
     static boolean TL1;

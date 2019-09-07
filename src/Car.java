@@ -4,20 +4,21 @@ public class Car{
     int length;
     int width;
     int speed;
+    int carID;
     int roadLength;
     static int roadID;
     static int position;
 
 
-    public Car(){
-        this.length = 6;
-        this.width = 3;
-        this.speed = 1;
+    public Car(int carID, int speed){
+        this.carID = carID;
+        this.length = 3;
+        this.width = 1;
+        this.speed = speed;
     }
 
 
-    /** Method for moving the car
-     * @return*/
+    /** Method for moving the car */
     public void moveForward() {
         if (roadID == 0){
             roadLength = Road.road0Length;
@@ -27,8 +28,8 @@ public class Car{
         }
 
         if (position == roadLength &&  roadID == 1){
-            System.out.println("Car "+" position is: "+ position+ "/"+roadLength+ " on road: "+roadID);
-            System.out.println("Car reached end of road 2, starting from the position 0 - road 0 again");
+            positionPrint();
+            System.out.println("\nCar reached end of road 2, starting from the position 0 - road 0 again\n");
             roadID = 0;
             position = 0;
         }
@@ -49,32 +50,34 @@ public class Car{
         }
     }
 
+    /** Method for printing the position of the car */
     public void positionPrint(){
          System.out.println("Car "+" position is: "+ position+ "/"+roadLength+ " on road: "+roadID);;
     }
 
+    /** Method for printing traffic light status: Red & the position of the car */
     public void redLightPrint(){
-         System.out.println("Red light - Position is: "+position+"/"+roadLength+"on road: "+roadID);
+         System.out.println("Red light - Position is: "+position+"/"+roadLength+"on road : "+roadID);
     }
 
+    /** Method for printing traffic light status: Green */
     public void greenLightPrint(){
         System.out.println("Green light!");
     }
 
+    /** Getter for speed */
     public int getSpeed() {
         return speed;
     }
 
+    /** Setter for speed */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
-
     /** Method that initializes car movement */
     public void start(){
         speed = 1;
     }
-
     /** Method for stopping car */
     public void stop(){
         speed = 0;
