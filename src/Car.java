@@ -52,12 +52,12 @@ public class Car{
 
     /** Method for printing the position of the car */
     public void positionPrint(){
-         System.out.println("Car "+" position is: "+ position+ "/"+roadLength+ " on road: "+roadID);;
+         System.out.println("Car "+" position is: "+ position+ "/"+roadLength+ " on road:"+roadID);;
     }
 
     /** Method for printing traffic light status: Red & the position of the car */
     public void redLightPrint(){
-         System.out.println("Red light - Position is: "+position+"/"+roadLength+"on road : "+roadID);
+         System.out.println("Red light - Position is: "+position+"/"+roadLength+" on road : "+roadID);
     }
 
     /** Method for printing traffic light status: Green */
