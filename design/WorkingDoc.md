@@ -12,3 +12,6 @@ cross over to road 2, drive down to the end of the road, before being placed bac
 This will act as a simulation which can highlight shortcomings in road design, visualizing points of congestion.
 
 
+##### Note
+
+The program contain methods not yet in use, which are planned to be implemented for A2. 
