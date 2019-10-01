@@ -2,6 +2,7 @@ import java.util.TimerTask;
 /** The Robot class changes the traffic light state */
 public class Robot {
 
+    // TODO Robot is currently reset every time the user starts or stops the program
     static boolean TL1;
 
 
