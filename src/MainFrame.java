@@ -47,6 +47,14 @@ public class MainFrame extends JFrame {
         main.add(zone9);
 
 
+//        zone4.setLayout(null);
+//        CarDraw carDraw = new CarDraw();
+//        zone4.add(carDraw);
+
+//        car01.setAlignmentX(40);
+//        car01.setAlignmentY(80);
+        //zone4.add();
+
 
 
 
@@ -88,6 +96,15 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
+
+//    public class CarDraw extends JPanel{
+//        public void paint(Graphics g) {
+//            g.drawRect(230,80,10,10);
+//            g.setColor(Color.RED);
+//            g.fillRect(230,80,10,10);
+//        }
+//    }
+
 
 
 
