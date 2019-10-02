@@ -10,6 +10,8 @@ public class Main {
 //        Main.start();
 
         MainFrame frame = new MainFrame();
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setBackground(Color.GREEN);
         //frame.setPreferredSize(new Dimension(1200,800));
         frame.setVisible(true);
 
