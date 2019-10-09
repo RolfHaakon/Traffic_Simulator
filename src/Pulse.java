@@ -4,7 +4,7 @@ public class Pulse extends TimerTask {
 
     private int ticker = 0;
     private boolean robotState = false;
-
+    MoveTraffic moveTraffic = new MoveTraffic();
 
 
     @Override
@@ -13,9 +13,10 @@ public class Pulse extends TimerTask {
         if (ticker > 4) {
             robotState = changeLight();
             ticker = 0;
+            moveTraffic.move();
         }
         //carPos = carMovement();
-        carMovement();
+        //carMovement();
     }
 
 
@@ -27,5 +28,6 @@ public class Pulse extends TimerTask {
     private void carMovement(){
         Car car = new Car(1,1);
         car.moveForward();
+
     }
 }

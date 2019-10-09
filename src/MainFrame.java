@@ -3,59 +3,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+public class MainFrame extends JFrame{
+    private JPanel main;
+    MoveTraffic moveTraffic = new MoveTraffic();
 
-public class MainFrame extends JFrame {
-    private JLabel label;
-    private JButton start, stop;
-    private JPanel main, zone1, zone2,zone3,zone4,zone5,zone6,zone7,zone8,zone9;
-
-    public MainFrame() {
+    public MainFrame(){
         super("Traffic Simulator");
-
-        /** Main layout */
-        main = new JPanel(new GridLayout(3,3,5,5));
-        main.setPreferredSize(new Dimension(800,600));
-
-        zone1 = new JPanel();
-        zone1.setBackground(Color.BLUE);
-        zone2 = new JPanel();
-        zone2.setBackground(Color.RED);
-        zone3 = new JPanel();
-        zone3.setBackground(Color.GREEN);
-        zone4 = new JPanel();
-        zone4.setBackground(Color.ORANGE);
-        zone5 = new JPanel();
-        zone5.setBackground(Color.BLUE);
-        zone6 = new JPanel();
-        zone6.setBackground(Color.BLACK);
-        zone7 = new JPanel();
-        zone7.setBackground(Color.BLUE);
-        zone8 = new JPanel();
-        zone8.setBackground(Color.WHITE);
-        zone9 = new JPanel();
-        zone9.setBackground(Color.YELLOW);
-
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        main = new JPanel();
+        setLayout(new BorderLayout());
+        main.setPreferredSize(new Dimension(1200,800));
+        main.setBackground(new Color(124,252,0));
         add(main);
-        main.add(zone1);
-        main.add(zone2);
-        main.add(zone3);
-        main.add(zone4);
-        main.add(zone5);
-        main.add(zone6);
-        main.add(zone7);
-        main.add(zone8);
-        main.add(zone9);
-
-
-//        zone4.setLayout(null);
-//        CarDraw carDraw = new CarDraw();
-//        zone4.add(carDraw);
-
-//        car01.setAlignmentX(40);
-//        car01.setAlignmentY(80);
-        //zone4.add();
-
-
+        pack();
 
 
         /** Button panel  */
@@ -84,28 +44,31 @@ public class MainFrame extends JFrame {
                 main.pause();
             }
         });
-
-
-
-
-//        label = new JLabel("Hello");
-//        add(label);
-//        label.setPreferredSize(new Dimension(1200,800));
-        pack();
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
     }
 
-//    public class CarDraw extends JPanel{
-//        public void paint(Graphics g) {
-//            g.drawRect(230,80,10,10);
-//            g.setColor(Color.RED);
-//            g.fillRect(230,80,10,10);
-//        }
-//    }
+    public void paint(Graphics g){
+        super.paint(g);
+        System.out.println("PAINT");
 
+        /** Paint Road */
+        Roads roads = new Roads();
 
+        for (int i=0; i<roads.verticalRoads.length; i++){
+            g.setColor(Color.GRAY);
+            g.fillRect(roads.verticalRoads[i][0],roads.verticalRoads[i][1],roads.roadLength,roads.roadWidth);
+            g.setColor(Color.WHITE);
+            g.fillRect(roads.verticalRoads[i][0],roads.verticalRoads[i][1]+22,roads.roadLength,roads.lineWidth);
+        }
 
+//        g.setColor(Color.GRAY);
+//        g.fillRect(roads.verticalRoads[0][0],roads.verticalRoads[0][1],roads.roadLength,roads.roadWidth);
+//        g.setColor(Color.WHITE);
+//        g.fillRect(roads.verticalRoads[0][0],roads.verticalRoads[0][1]+22,roads.roadLength,roads.lineWidth);
 
+        /** Paint Cars */
+        System.out.println(moveTraffic.getX());
+        g.setColor(Color.BLUE);
+        g.fillRect(moveTraffic.getX(), 385, 30, 15);
+
+    }
 }

@@ -7,23 +7,17 @@ public class Main {
     private boolean firstStart = true;
 
     public static void main(String[] args) {
-//        Main.start();
-
         MainFrame frame = new MainFrame();
         frame.setLocationRelativeTo(null);
-        frame.getContentPane().setBackground(Color.GREEN);
-        //frame.setPreferredSize(new Dimension(1200,800));
         frame.setVisible(true);
-
     }
 
 
     /** Method for starting the simulation */
     public void start(){
-        if (firstStart == true) {
+        if (firstStart) {
             System.out.println("\nThe car will drive down Road 1, wait for the traffic light to turn green" +
                     "before continuing down road 2. After reaching the end of road 2 the car will start from the beginning\n");
-            Road road = new Road(3,5);
             this.timer = new Timer();
             this.timer.schedule(new Pulse(),0,1000);
             firstStart = false;

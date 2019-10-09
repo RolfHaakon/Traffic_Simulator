@@ -21,10 +21,10 @@ public class Car{
     /** Method for moving the car */
     public void moveForward() {
         if (roadID == 0){
-            roadLength = Road.road0Length;
+            //roadLength = Road.road0Length;
         }
         else if (roadID == 1){
-            roadLength = Road.road1Length;
+            //roadLength = Road.road1Length;
         }
 
         if (position == roadLength &&  roadID == 1){
