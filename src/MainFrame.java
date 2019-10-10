@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 public class MainFrame extends JFrame implements ActionListener {
     private JPanel main;
     private Timer timer;
-    MoveTraffic moveTraffic = new MoveTraffic();
+
 
     public MainFrame(){
         super("Traffic Simulator");
@@ -93,9 +93,9 @@ public class MainFrame extends JFrame implements ActionListener {
 //        g.fillRect(roads.verticalRoads[0][0],roads.verticalRoads[0][1]+22,roads.roadLength,roads.lineWidth);
 
         /** Paint Cars */
-        System.out.println(moveTraffic.getX());
+        System.out.println(getX());
         g.setColor(Color.BLUE);
-        g.fillRect(moveTraffic.getX(), 385, 30, 15);
+        g.fillRect(getX(), 385, 30, 15);
 
     }
 

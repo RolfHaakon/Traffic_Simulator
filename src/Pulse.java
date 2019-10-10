@@ -11,7 +11,7 @@ public class Pulse extends TimerTask {
     public void run() {
         ticker = ticker + 1;
         if (ticker > 4) {
-            robotState = changeLight();
+            //robotState = changeLight();
             ticker = 0;
             moveTraffic.move();
         }
@@ -20,14 +20,14 @@ public class Pulse extends TimerTask {
     }
 
 
-    private boolean changeLight(){
-        Robot robot = new Robot();
-        return robot.change(robotState);
+    private void changeLight(){
+        //Robot robot = new Robot();
+        //return robot.change(robotState);
+        return;
     }
 
     private void carMovement(){
-        Car car = new Car(1,1);
-        car.moveForward();
-
+        //Car car = new Car(1,1);
+        //car.moveForward();
     }
 }

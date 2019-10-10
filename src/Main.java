@@ -19,7 +19,7 @@ public class Main {
             System.out.println("\nThe car will drive down Road 1, wait for the traffic light to turn green" +
                     "before continuing down road 2. After reaching the end of road 2 the car will start from the beginning\n");
             this.timer = new Timer();
-            this.timer.schedule(new Pulse(),0,1000);
+            this.timer.schedule(new Pulse(),0,1000/24);
             firstStart = false;
         }
         else {
