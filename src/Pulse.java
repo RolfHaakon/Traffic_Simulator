@@ -14,6 +14,7 @@ public class Pulse extends TimerTask {
             robotState = changeLight();
             ticker = 0;
             moveTraffic.move();
+
         }
         //carPos = carMovement();
         //carMovement();
@@ -28,6 +29,6 @@ public class Pulse extends TimerTask {
     private void carMovement(){
         Car car = new Car(1,1);
         car.moveForward();
-
     }
+
 }
