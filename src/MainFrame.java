@@ -3,13 +3,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame implements ActionListener {
     private JPanel main;
+    private Timer timer;
     MoveTraffic moveTraffic = new MoveTraffic();
 
     public MainFrame(){
         super("Traffic Simulator");
+        timer = new Timer(1000/24,this);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+
         main = new JPanel();
         setLayout(new BorderLayout());
         main.setPreferredSize(new Dimension(1200,800));
@@ -26,12 +33,28 @@ public class MainFrame extends JFrame{
         add(buttonPanel, BorderLayout.SOUTH);
 
         /** Start and stop buttons  */
+        JButton refresh = new JButton("Refresh");
         JButton start = new JButton("Start");
         JButton stop = new JButton("Stop");
+        buttonPanel.add(refresh);
         buttonPanel.add(start);
         buttonPanel.add(stop);
 
         Main main = new Main();
+
+
+
+
+
+
+
+        refresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                repaint();
+            }
+        });
+
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -44,7 +67,11 @@ public class MainFrame extends JFrame{
                 main.pause();
             }
         });
+
+        timer.start();
     }
+
+
 
     public void paint(Graphics g){
         super.paint(g);
@@ -70,5 +97,10 @@ public class MainFrame extends JFrame{
         g.setColor(Color.BLUE);
         g.fillRect(moveTraffic.getX(), 385, 30, 15);
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        repaint();
     }
 }
