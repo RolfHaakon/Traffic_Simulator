@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Timer;
-
 
 
 public class MainFrame extends JFrame implements ActionListener {
@@ -113,11 +111,11 @@ public class MainFrame extends JFrame implements ActionListener {
         /** Paint Road */
         Roads roads = new Roads();
 
-        for (int i=0; i<roads.verticalRoads.length; i++){
+        for (int i = 0; i<roads.verticalRoadsRight.length; i++){
             g.setColor(Color.GRAY);
-            g.fillRect(roads.verticalRoads[i][0],roads.verticalRoads[i][1],roads.roadLength,roads.roadWidth);
-            g.setColor(Color.WHITE);
-            g.fillRect(roads.verticalRoads[i][0],roads.verticalRoads[i][1]+22,roads.roadLength,roads.lineWidth);
+            g.drawLine(roads.verticalRoadsRight[i][0],roads.verticalRoadsRight[i][1],(roads.verticalRoadsRight[i][0]+roads.roadLength),roads.verticalRoadsRight[i][1]);
+//            g.setColor(Color.WHITE);
+//            g.fillRect(roads.verticalRoads[i][0],roads.verticalRoads[i][1]+22,roads.roadLength,roads.lineWidth);
         }
 
 //        g.setColor(Color.GRAY);
