@@ -3,7 +3,6 @@ import java.util.Timer;
 
 public class Main {
     String fileName = "Untitled";
-    private Timer timer = new Timer();
 
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
