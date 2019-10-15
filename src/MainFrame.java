@@ -2,15 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+
+
 
 public class MainFrame extends JFrame implements ActionListener {
     private JPanel main;
-    private Timer timer;
+    private boolean threadSuspended;
+    private boolean firstStart = true;
+    public int x = 0;
 
 
     public MainFrame(){
         super("Traffic Simulator");
-        timer = new Timer(1000/24,this);
+
+//        this.timer = new Timer(1000/24,this);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -23,6 +29,7 @@ public class MainFrame extends JFrame implements ActionListener {
         main.setBackground(new Color(124,252,0));
         add(main);
         pack();
+
 
 
         /** Button panel  */
@@ -47,35 +54,61 @@ public class MainFrame extends JFrame implements ActionListener {
 
 
 
-
+//        PulseThread thread = new PulseThread();
         refresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                repaint();
+
             }
         });
 
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                main.start();
+                if (threadSuspended){
+                    threadSuspended = false;
+                }
+                MyThread thread = new MyThread();
+                thread.start();
             }
         });
         stop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                main.pause();
+                threadStop();
             }
         });
 
-        timer.start();
     }
+
+    public void threadStop(){
+        threadSuspended = true;
+    }
+    private class MyThread extends Thread {
+        public void run(){
+            while(true){
+                x += 3;
+                try{
+                    Thread.sleep(100);
+
+                    synchronized(this) {
+                        while (threadSuspended)
+                            wait();
+                    }
+                }catch(InterruptedException e){
+                    System.exit(0);
+                }
+                repaint();
+            }
+        }
+    }
+
 
 
 
     public void paint(Graphics g){
         super.paint(g);
-        System.out.println("PAINT");
+
 
         /** Paint Road */
         Roads roads = new Roads();
@@ -93,9 +126,8 @@ public class MainFrame extends JFrame implements ActionListener {
 //        g.fillRect(roads.verticalRoads[0][0],roads.verticalRoads[0][1]+22,roads.roadLength,roads.lineWidth);
 
         /** Paint Cars */
-        System.out.println(getX());
         g.setColor(Color.BLUE);
-        g.fillRect(getX(), 385, 30, 15);
+        g.fillRect(x, 385, 30, 15);
 
     }
 
@@ -103,4 +135,29 @@ public class MainFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         repaint();
     }
+
+    /** Method for starting the simulation */
+    public void startTime(){
+        if (firstStart) {
+            System.out.println("\nThe car will drive down Road 1, wait for the traffic light to turn green" +
+                    "before continuing down road 2. After reaching the end of road 2 the car will start from the beginning\n");
+//            this.timer = new Timer();
+//            this.timer.schedule(new Pulse(),0,1000/24);
+            firstStart = false;
+        }
+        else {
+            resume();
+        }
+    }
+    /** Method for pause the simulation */
+    public void pause(){
+//        this.timer.cancel();
+    }
+    /** Method for resuming the simulation */
+    public void resume() {
+//        this.timer = new Timer();
+//        this.timer.schedule(new Pulse(),0,1000);
+    }
+
+
 }
