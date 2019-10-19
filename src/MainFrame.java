@@ -59,7 +59,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
             }
         });
-
+        // TODO Stop new thread from starting if existing thread is running
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

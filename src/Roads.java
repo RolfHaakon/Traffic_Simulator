@@ -1,9 +1,9 @@
 public class Roads {
 
 
-    public int verticalRoadsRight[][] = {{0,380},{210, 380},{450,380}};
+    public int verticalRoadsRight[][] = {{0,380},{350, 380},{700,380}};
 
-    public int roadLength = 45;
+    public int roadLength = 350;
     public int roadWidth = 46;
     public int lineWidth = 2;
 
