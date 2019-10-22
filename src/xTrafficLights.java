@@ -2,9 +2,12 @@ import java.awt.*;
 
 public class xTrafficLights extends TrafficLights {
     boolean running;
+    int roadID;
 
-    public xTrafficLights(int x, int y,boolean running) {
-        super(x, y);
+    public xTrafficLights(int x, int y,int roadID,boolean running) {
+        super(x, y, roadID, running);
+        this.running = running;
+        this.roadID = roadID;
         this.running = running;
     }
 
@@ -17,4 +20,5 @@ public class xTrafficLights extends TrafficLights {
         }
         g.fillRect(x,y,5,5);
     }
+
 }

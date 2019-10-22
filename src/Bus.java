@@ -2,8 +2,8 @@ import java.awt.*;
 
 public class Bus extends Vehicle {
 
-    public Bus(int newx, int newy){
-        super(newx,newy);
+    public Bus(int x, int y, int roadID){
+        super(x,y,roadID);
         length = 30;
         width = 5;
         speed = 5;

@@ -74,14 +74,10 @@ public class TrafficSimulation implements ActionListener, Runnable {
 
     public void TLchange() {
         count++;
-        if (count == 50) {
-            if (xTL = true) {
-                xTL = false;
-                count = 0;
-            } else {
-                xTL = true;
-                count = 0;
-            }
+        if (count == 70) {
+            roads.lightChange();
+            System.out.println("TLCHANGE");
+            count = 0;
         }
     }
 

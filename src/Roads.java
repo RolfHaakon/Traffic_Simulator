@@ -12,7 +12,8 @@ public class Roads extends JPanel {
     ArrayList<yRoads> verticalRoads = new ArrayList<yRoads>();
     final int MAP_WIDTH = 1200;
     final int ROAD_LENGTH = 300;
-    final int HLANE_ONE_Y = 300;
+    final int XLANE_ONE_Y = 300;
+    final int XLANE_TWO_Y = 500;
 
 
     public Roads(){
@@ -50,28 +51,53 @@ public class Roads extends JPanel {
     }
 
     public void initDraw(){
-        xRoads defRoad1 = new xRoads(0,HLANE_ONE_Y,ROAD_LENGTH,HLANE_ONE_Y,0);
+        xRoads defRoad1 = new xRoads(0,XLANE_ONE_Y,300,XLANE_ONE_Y,0);
         addxRoad(defRoad1);
+        xRoads defRoad2 = new xRoads(300,XLANE_ONE_Y,600,XLANE_ONE_Y,1);
+        addxRoad(defRoad2);
 
-        xTrafficLights defTL1 = new xTrafficLights(300,300,false);
+        xTrafficLights defTL1 = new xTrafficLights(300,300,0,false);
         addxTL(defTL1);
 
-        Car defCar1 = new Car(40,300);
+        Car defCar1 = new Car(40,300,0);
         addVehicle(defCar1);
 
-        Bus defBus1 = new Bus(0,300);
+        Bus defBus1 = new Bus(0,300,0);
         addVehicle(defBus1);
 
+    }
+
+    public boolean lightStatus(int id){
+        xTrafficLights xTrafficLights = horizontalTL.get(id);
+        return xTrafficLights.isRunning();
+    }
+    public void lightChange(){
+        for (int i = 0; i < horizontalTL.size(); i++ ){
+            TrafficLights trafficLights = horizontalTL.get(i);
+            if (trafficLights.running){
+                trafficLights.setRunning(false);
+            } else {
+                trafficLights.setRunning(true);
+            }
+        }
     }
 
 
     public void move(){
         for (int i = 0; i < cars.size(); i++) {
             Vehicle v = cars.get(i);
-            v.setX(v.getX() + v.getSpeed());
-            if (v.getX() > MAP_WIDTH) {
-                v.setX(0);
+            xRoads xRoads = horizontalRoads.get(v.roadID);
+            //xTrafficLights xTrafficLights = horizontalTL.get(v.roadID);
+
+            if (((v.getX() + v.getLength()) > xRoads.x2) && (!lightStatus(v.roadID))) {
+                v.setSpeed(0);
             }
+            if (((v.getX() + v.getLength() > xRoads.x2) && lightStatus(v.roadID))){
+                v.setSpeed(5);
+                v.setRoadID(1);
+                v.setX(v.getX() + v.getSpeed());
+            }
+            v.setX(v.getX() + v.getSpeed());
         }
     }
 
