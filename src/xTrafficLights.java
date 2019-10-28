@@ -1,14 +1,13 @@
 import java.awt.*;
 
 public class xTrafficLights extends TrafficLights {
-    boolean running;
+//    boolean running;
     int roadID;
 
     public xTrafficLights(int x, int y,int roadID,boolean running) {
         super(x, y, roadID, running);
         this.running = running;
         this.roadID = roadID;
-        this.running = running;
     }
 
     public void paint(Graphics g){

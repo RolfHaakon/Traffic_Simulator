@@ -7,9 +7,9 @@ public class Roads extends JPanel {
     ArrayList<Vehicle> cars = new ArrayList<Vehicle>();
     ArrayList<xRoads> horizontalRoads = new ArrayList<xRoads>();
     ArrayList<xTrafficLights> horizontalTL = new ArrayList<xTrafficLights>();
-
-
     ArrayList<yRoads> verticalRoads = new ArrayList<yRoads>();
+
+
     final int MAP_WIDTH = 1200;
     final int ROAD_LENGTH = 300;
     final int XLANE_ONE_Y = 300;
@@ -58,6 +58,8 @@ public class Roads extends JPanel {
 
         xTrafficLights defTL1 = new xTrafficLights(300,300,0,false);
         addxTL(defTL1);
+        xTrafficLights defTL2 = new xTrafficLights(600, 300,1,false);
+        addxTL(defTL2);
 
         Car defCar1 = new Car(40,300,0);
         addVehicle(defCar1);
