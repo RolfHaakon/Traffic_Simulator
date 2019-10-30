@@ -75,10 +75,15 @@ public class Roads extends JPanel {
         yRoads defRoady3 = new yRoads(300,0, 300, 300, 6);
         addyRoad(defRoady3);
 
-        //Road connections
+        //Road connections - If a road does not have 3 connections, the remaining values will be filled with the roadID
         RoadConnections connection1 = new RoadConnections(0,1,4,5);
         roadConnections.add(connection1);
-
+        RoadConnections connection2 = new RoadConnections(1,2,1,1);
+        roadConnections.add(connection2);
+        RoadConnections connection3 = new RoadConnections(2,3,2,2);
+        roadConnections.add(connection3);
+        RoadConnections connection4 = new RoadConnections(3,3,3,3);
+        roadConnections.add(connection4);
 
         //Default x traffic lights
         xTrafficLights defTL1 = new xTrafficLights(300,300,0,false);
@@ -137,7 +142,12 @@ public class Roads extends JPanel {
     }
 
     private void newRoad(int ID) {
+        for (int i = 0; i < roadConnections.size(); i++){
+            RoadConnections r = roadConnections.get(i);
+            if (r.roadID == ID) {
 
+            }
+        }
     }
 
 }
