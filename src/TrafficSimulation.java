@@ -76,7 +76,7 @@ public class TrafficSimulation implements ActionListener, Runnable {
         count++;
         if (count == 70) {
             roads.lightChange();
-            System.out.println("TLCHANGE");
+            System.out.println("Traffic light change");
             count = 0;
         }
     }
