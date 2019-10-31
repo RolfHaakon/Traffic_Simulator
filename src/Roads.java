@@ -100,7 +100,7 @@ public class Roads extends JPanel {
         //Default y traffic lights
 
 
-        Car defCar1 = new Car(305,300,1);
+        Car defCar1 = new Car(60,300,0);
         addVehicle(defCar1);
 
         Bus defBus1 = new Bus(0,300,0);
@@ -130,19 +130,34 @@ public class Roads extends JPanel {
             xRoads xRoads = horizontalRoads.get(v.roadID);
             //xTrafficLights xTrafficLights = horizontalTL.get(v.roadID);
             //System.out.println(xRoads.x2);
+            v.setSpeed(4);
             if (((v.getX() + v.getLength()) > xRoads.x2) && (!lightStatus(v.roadID))) {
                 v.setSpeed(0);
             }
             if (((v.getX() + v.getLength() > xRoads.x2) && lightStatus(v.roadID))){
-                v.setSpeed(5);
+                v.setSpeed(4);
                 //Choose next road
                 int newR = newRoad(v.getRoadID());
                 v.setRoadID(newR);
                 xRoads xRoads1 = horizontalRoads.get(v.roadID);
-                v.setX(xRoads1.x1);
+                if (collision(v, xRoads1.x1, v.getY())) {
+                    v.setSpeed(0);
+                    System.out.println("COLLISION Error 1");
+                }
+                else if (!collision(v, xRoads1.x1, v.getY())) {
+                    v.setX(xRoads1.x1);
+                    v.setSpeed(4);
+                }
+            }
+            if (collision(v, (v.getX() + v.getSpeed()), v.getY())){
+                v.setSpeed(0);
+                System.out.println("COLLISION Error 2");
+            }
+            else if (!collision(v, (v.getX() + v.getSpeed()), v.getY())) {
+                v.setSpeed(4);
                 v.setX(v.getX() + v.getSpeed());
             }
-            v.setX(v.getX() + v.getSpeed());
+            //v.setX(v.getX() + v.getSpeed());
         }
     }
 
@@ -171,24 +186,31 @@ public class Roads extends JPanel {
         return 0;
     }
 
-    public boolean collision(int x, int y, int len, Vehicle v){
+    public boolean collision(Vehicle v, int x, int y){
         for (int i = 0; i <cars.size();i++){ //loop through vehicles
             Vehicle c = cars.get(i);
             if (y == c.getY() || (x == c.getX())) {  //check vehicles in X lane
                 if (c.equals(v) == false) { //make sure the vehicle don't collide with itself
-                    if (v.getX() < c.getX() + c.getLength() + 5 && //check each vehicles left side is to others right side
-                            v.getX() + v.getLength() +5 > c.getX()) { //check each vehicles right side to others right side.
-                        return true; // return true if collision
+                    if (x == (c.getX()-4)){
+                        System.out.println("COLLISION X - TRUE");
+                        return true;
                     }
-                    if (c.equals(v) == false) { // check vehicles in Y lane8
-                        if (v.getY() < v.getX() + c.getLength() + 5 &&
-                                v.getY() + v.getLength() + 5 > c.getY()) {
-                            return true;
-                        }
-                    }
+//                    if (v.getX() < c.getX() + c.getLength() + 5 && //check each vehicles left side is to others right side
+//                            v.getX() + v.getLength() +5 > c.getX()) { //check each vehicles right side to others right side.
+//                        System.out.println("COLLISION X - TRUE");
+//                        return true; // return true if collision
+//                    }
+//                    if (c.equals(v) == false) { // check vehicles in Y lane8
+//                        if (v.getY() < v.getX() + c.getLength() + 5 &&
+//                                v.getY() + v.getLength() + 5 > c.getY()) {
+//                            System.out.println("COLLISION Y - TRUE");
+//                            return true;
+//                        }
+//                    }
                 }
             }
         }
+        System.out.println("COLLISION - FALSE");
         return false;
     }
 

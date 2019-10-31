@@ -6,7 +6,7 @@ public class Bus extends Vehicle {
         super(x,y,roadID);
         length = 30;
         width = 5;
-        speed = 5;
+        speed = 4;
     }
 
 
