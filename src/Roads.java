@@ -100,7 +100,7 @@ public class Roads extends JPanel {
         //Default y traffic lights
 
 
-        Car defCar1 = new Car(40,300,0);
+        Car defCar1 = new Car(305,300,1);
         addVehicle(defCar1);
 
         Bus defBus1 = new Bus(0,300,0);
@@ -138,8 +138,8 @@ public class Roads extends JPanel {
                 //Choose next road
                 int newR = newRoad(v.getRoadID());
                 v.setRoadID(newR);
-                //System.out.println(v.getRoadID());
-
+                xRoads xRoads1 = horizontalRoads.get(v.roadID);
+                v.setX(xRoads1.x1);
                 v.setX(v.getX() + v.getSpeed());
             }
             v.setX(v.getX() + v.getSpeed());
