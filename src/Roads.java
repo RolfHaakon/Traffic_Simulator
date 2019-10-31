@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Roads extends JPanel {
 
@@ -76,7 +78,7 @@ public class Roads extends JPanel {
         addyRoad(defRoady3);
 
         //Road connections - If a road does not have 3 connections, the remaining values will be filled with the roadID
-        RoadConnections connection1 = new RoadConnections(0,1,4,5);
+        RoadConnections connection1 = new RoadConnections(0,1,0,0);
         roadConnections.add(connection1);
         RoadConnections connection2 = new RoadConnections(1,2,1,1);
         roadConnections.add(connection2);
@@ -88,10 +90,12 @@ public class Roads extends JPanel {
         //Default x traffic lights
         xTrafficLights defTL1 = new xTrafficLights(300,300,0,false);
         addxTL(defTL1);
-        xTrafficLights defTL2 = new xTrafficLights(600, 300,1,false);
+        xTrafficLights defTL2 = new xTrafficLights(600, 300,1,true);
         addxTL(defTL2);
-        xTrafficLights defTL3 = new xTrafficLights(900, 300, 2, true);
+        xTrafficLights defTL3 = new xTrafficLights(900, 300, 2, false);
         addxTL(defTL3);
+        xTrafficLights defTL4 = new xTrafficLights(1195, 300, 3, true);
+        addxTL(defTL4);
 
         //Default y traffic lights
 
@@ -125,29 +129,46 @@ public class Roads extends JPanel {
             Vehicle v = cars.get(i);
             xRoads xRoads = horizontalRoads.get(v.roadID);
             //xTrafficLights xTrafficLights = horizontalTL.get(v.roadID);
-            System.out.println(xRoads.x2);
+            //System.out.println(xRoads.x2);
             if (((v.getX() + v.getLength()) > xRoads.x2) && (!lightStatus(v.roadID))) {
                 v.setSpeed(0);
             }
             if (((v.getX() + v.getLength() > xRoads.x2) && lightStatus(v.roadID))){
                 v.setSpeed(5);
                 //Choose next road
-                newRoad(v.getRoadID());
+                int newR = newRoad(v.getRoadID());
+                v.setRoadID(newR);
+                //System.out.println(v.getRoadID());
 
-                v.setRoadID(1);
                 v.setX(v.getX() + v.getSpeed());
             }
             v.setX(v.getX() + v.getSpeed());
         }
     }
 
-    private void newRoad(int ID) {
+    private Integer newRoad(int ID) {
+        int v;
         for (int i = 0; i < roadConnections.size(); i++){
             RoadConnections r = roadConnections.get(i);
             if (r.roadID == ID) {
-
+                List<Integer> l1 = new ArrayList<Integer>();
+                l1.add(r.c1);
+                l1.add(r.c2);
+                l1.add(r.c3);
+                v = l1.get((int)(Math.random()*3));
+                if ((r.c1 == r.c2) && (r.c2 == r.c3)) {
+                    System.out.println("backtostart");
+                    return 0;
+                }
+                while (v == r.roadID) {
+                    v = l1.get((int)(Math.random()*3));
+                    System.out.println("Reroll " +v);
+                }
+                System.out.println("V ==="+v);
+                return v;
             }
         }
+        return 0;
     }
 
 }
