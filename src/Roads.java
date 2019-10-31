@@ -171,29 +171,36 @@ public class Roads extends JPanel {
         return 0;
     }
 
+    public boolean collision(int x, int y, int len, Vehicle v){
+        for (int i = 0; i <cars.size();i++){ //loop through vehicles
+            Vehicle c = cars.get(i);
+            if (y == c.getY() || (x == c.getX())) {  //check vehicles in X lane
+                if (c.equals(v) == false) { //make sure the vehicle don't collide with itself
+                    if (v.getX() < c.getX() + c.getLength() + 5 && //check each vehicles left side is to others right side
+                            v.getX() + v.getLength() +5 > c.getX()) { //check each vehicles right side to others right side.
+                        return true; // return true if collision
+                    }
+                    if (c.equals(v) == false) { // check vehicles in Y lane8
+                        if (v.getY() < v.getX() + c.getLength() + 5 &&
+                                v.getY() + v.getLength() + 5 > c.getY()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+
+
+
 }
 
 
-//    public boolean collision(int x, int y, int len, Vehicle v){
-//        for (int i = 0; i <cars.size();i++){ //loop through vehicles
-//            Vehicle c = cars.get(i);
-//            if (y == c.getY() || (x == c.getX())) {  //check vehicles in X lane
-//                if (c.equals(v) == false) { //make sure the vehicle don't collide with itself
-//                    if (v.getX() < c.getX() + c.getLength() + 5 && //check each vehicles left side is to others right side
-//                            v.getX() + v.getLength() +5 > c.getX()) { //check each vehicles right side to others right side.
-//                        return true; // return true if collision
-//                    }
-//                    if (c.equals(v) == false) { // check vehicles in Y lane8
-//                        if (v.getY() < v.getX() + c.getLength() + 5 &&
-//                        v.getY() + v.getLength() + 5 > c.getY()) {
-//                            return true;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return false;
-//    }
+
 
 
 
