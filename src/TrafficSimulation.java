@@ -62,7 +62,7 @@ public class TrafficSimulation implements ActionListener, Runnable {
     public void run() {
         while (running == true) {
             roads.move();
-            TLchange();
+            eventHandler();
             frame.repaint();
             try {
                 Thread.sleep(100);
@@ -72,13 +72,16 @@ public class TrafficSimulation implements ActionListener, Runnable {
         }
     }
 
-    public void TLchange() {
+    public void eventHandler() {
         count++;
-        if (count == 70) {
+        if (count == 80) {
             roads.lightChange();
             System.out.println("Traffic light change");
             count = 0;
         }
+        if (count % 50 == 0){
+            System.out.println("CarSpawn");
+            roads.spawnCar();
+        }
     }
-
 }

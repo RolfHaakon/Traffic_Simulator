@@ -100,11 +100,17 @@ public class Roads extends JPanel {
         //Default y traffic lights
 
 
-        Car defCar1 = new Car(60,300,0);
+        Car defCar1 = new Car(60,295,0, 'e');
         addVehicle(defCar1);
 
-        Bus defBus1 = new Bus(0,300,0);
-        addVehicle(defBus1);
+        Car defCar2 = new Car(450,295,2, 'e');
+        addVehicle(defCar2);
+
+        Car defCar3 = new Car(100,295,0, 'e');
+        addVehicle(defCar3);
+
+//        Bus defBus1 = new Bus(0,300,0);
+//        addVehicle(defBus1);
 
     }
 
@@ -129,10 +135,10 @@ public class Roads extends JPanel {
             Vehicle v = cars.get(i);
             xRoads xRoads = horizontalRoads.get(v.roadID);
             //xTrafficLights xTrafficLights = horizontalTL.get(v.roadID);
-            //System.out.println(xRoads.x2);
             v.setSpeed(4);
             if (((v.getX() + v.getLength()) > xRoads.x2) && (!lightStatus(v.roadID))) {
                 v.setSpeed(0);
+
             }
             if (((v.getX() + v.getLength() > xRoads.x2) && lightStatus(v.roadID))){
                 v.setSpeed(4);
@@ -142,22 +148,21 @@ public class Roads extends JPanel {
                 xRoads xRoads1 = horizontalRoads.get(v.roadID);
                 if (collision(v, xRoads1.x1, v.getY())) {
                     v.setSpeed(0);
+                    v.setX(v.getX() + v.getSpeed());
                     System.out.println("COLLISION Error 1");
                 }
                 else if (!collision(v, xRoads1.x1, v.getY())) {
                     v.setX(xRoads1.x1);
                     v.setSpeed(4);
+                    v.setX(v.getX() + v.getSpeed());
                 }
             }
             if (collision(v, (v.getX() + v.getSpeed()), v.getY())){
                 v.setSpeed(0);
                 System.out.println("COLLISION Error 2");
             }
-            else if (!collision(v, (v.getX() + v.getSpeed()), v.getY())) {
-                v.setSpeed(4);
-                v.setX(v.getX() + v.getSpeed());
-            }
-            //v.setX(v.getX() + v.getSpeed());
+            //When the speed is determined, make move
+            v.setX(v.getX() + v.getSpeed());
         }
     }
 
@@ -191,7 +196,7 @@ public class Roads extends JPanel {
             Vehicle c = cars.get(i);
             if (y == c.getY() || (x == c.getX())) {  //check vehicles in X lane
                 if (c.equals(v) == false) { //make sure the vehicle don't collide with itself
-                    if (x == (c.getX()-4)){
+                    if (x == (c.getX()-8)){
                         System.out.println("COLLISION X - TRUE");
                         return true;
                     }
@@ -210,15 +215,14 @@ public class Roads extends JPanel {
                 }
             }
         }
-        System.out.println("COLLISION - FALSE");
         return false;
     }
 
 
-
-
-
-
+    public void spawnCar() {
+        Car defCar10 = new Car(40,295,0, 'e');
+        addVehicle(defCar10);
+    }
 }
 
 

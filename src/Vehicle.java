@@ -5,14 +5,16 @@ public class Vehicle {
     int x;
     int y;
     int roadID;
+    char Direction;
 
     int length = 0;
     int width = 0;
     int speed = 0;
-    public Vehicle(int x, int y, int roadID) {
+    public Vehicle(int x, int y, int roadID, char Direction) {
         this.x = x;
         this.y = y;
         this.roadID = roadID;
+        this.Direction = Direction;
     }
 
     //Will use paint method in child classes
