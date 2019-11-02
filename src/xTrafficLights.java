@@ -1,7 +1,6 @@
 import java.awt.*;
 
 public class xTrafficLights extends TrafficLights {
-//    boolean running;
     int roadID;
 
     public xTrafficLights(int x, int y,int roadID,boolean running) {

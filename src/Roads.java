@@ -9,6 +9,7 @@ public class Roads extends JPanel {
     ArrayList<Vehicle> cars = new ArrayList<Vehicle>();
     ArrayList<xRoads> horizontalRoads = new ArrayList<xRoads>();
     ArrayList<xTrafficLights> horizontalTL = new ArrayList<xTrafficLights>();
+    ArrayList<yTrafficLights> verticalTL = new ArrayList<yTrafficLights>();
     ArrayList<yRoads> verticalRoads = new ArrayList<yRoads>();
     ArrayList<RoadConnections> roadConnections = new ArrayList<RoadConnections>();
 
@@ -37,6 +38,10 @@ public class Roads extends JPanel {
 
     public void addxTL(xTrafficLights xTrafficLights){
         horizontalTL.add(xTrafficLights);
+    }
+
+    public void addyTL(yTrafficLights yTrafficLights){
+        verticalTL.add(yTrafficLights);
     }
 
     public void paintComponent(Graphics g){
@@ -98,7 +103,10 @@ public class Roads extends JPanel {
         addxTL(defTL4);
 
         //Default y traffic lights
-
+        xTrafficLights defTL5 = new xTrafficLights(300,500,4,false);
+        addxTL(defTL5);
+        xTrafficLights defTL6 = new xTrafficLights(300,700,5,false);
+        addxTL(defTL6);
 
         Car defCar1 = new Car(60,295,0, 'e');
         addVehicle(defCar1);
@@ -149,7 +157,7 @@ public class Roads extends JPanel {
                 if (collision(v, xRoads1.x1, v.getY())) {
                     v.setSpeed(0);
                     v.setX(v.getX() + v.getSpeed());
-                    System.out.println("COLLISION Error 1");
+//                    System.out.println("COLLISION Error 1");
                 }
                 else if (!collision(v, xRoads1.x1, v.getY())) {
                     v.setX(xRoads1.x1);
@@ -159,7 +167,7 @@ public class Roads extends JPanel {
             }
             if (collision(v, (v.getX() + v.getSpeed()), v.getY())){
                 v.setSpeed(0);
-                System.out.println("COLLISION Error 2");
+//                System.out.println("COLLISION Error 2");
             }
             //When the speed is determined, make move
             v.setX(v.getX() + v.getSpeed());
@@ -197,7 +205,7 @@ public class Roads extends JPanel {
             if (y == c.getY() || (x == c.getX())) {  //check vehicles in X lane
                 if (c.equals(v) == false) { //make sure the vehicle don't collide with itself
                     if (x == (c.getX()-8)){
-                        System.out.println("COLLISION X - TRUE");
+//                        System.out.println("COLLISION X - TRUE");
                         return true;
                     }
 //                    if (v.getX() < c.getX() + c.getLength() + 5 && //check each vehicles left side is to others right side
