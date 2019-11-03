@@ -1,20 +1,22 @@
 import java.awt.*;
 
-public class yRoads {
+public class RoadList {
 
     int x1;
     int y1;
     int x2;
     int y2;
     int roadID;
+    int isX;
 
 
-    public yRoads(int x1 ,int y1, int x2, int y2, int roadID){
+    public RoadList(int x1 , int y1, int x2, int y2, int roadID, int isX){
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
         this.roadID = roadID;
+        this.isX = isX;
     }
 
 
@@ -25,7 +27,5 @@ public class yRoads {
         g.setColor(Color.BLACK);
         g.drawLine(x1,y1,x2,y2);
     }
-
-
 
 }

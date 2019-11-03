@@ -1,12 +1,14 @@
 import java.awt.*;
 
-public class yTrafficLights extends TrafficLights {
+public class TrafficLightsList extends TrafficLights {
     int roadID;
+    int isX;
 
-    public yTrafficLights(int x, int y,int roadID,boolean running) {
+    public TrafficLightsList(int x, int y, int roadID, boolean running, int isX) {
         super(x, y, roadID, running);
         this.running = running;
         this.roadID = roadID;
+        this.isX = isX;
     }
 
     public void paint(Graphics g){
