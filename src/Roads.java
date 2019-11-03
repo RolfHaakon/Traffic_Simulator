@@ -6,7 +6,7 @@ import java.util.List;
 public class Roads extends JPanel {
 
     ArrayList<Vehicle> cars = new ArrayList<Vehicle>();
-    ArrayList<RoadList> horizontalRoads = new ArrayList<RoadList>();
+    ArrayList<RoadList> roadList = new ArrayList<RoadList>();
     ArrayList<TrafficLightsList> horizontalTL = new ArrayList<TrafficLightsList>();
     ArrayList<RoadConnections> roadConnections = new ArrayList<RoadConnections>();
 
@@ -26,7 +26,7 @@ public class Roads extends JPanel {
     }
 
     public void addRoad(RoadList xRoad){
-        horizontalRoads.add(xRoad);
+        roadList.add(xRoad);
     }
 
 
@@ -41,8 +41,8 @@ public class Roads extends JPanel {
             for (int i = 0; i < cars.size(); i++){
                 cars.get(i).paint(g);
             }
-            for (int i = 0; i < horizontalRoads.size(); i++){
-                horizontalRoads.get(i).paint(g);
+            for (int i = 0; i < roadList.size(); i++){
+                roadList.get(i).paint(g);
             }
             for (int i = 0; i < horizontalTL.size(); i++){
                 horizontalTL.get(i).paint(g);
@@ -54,28 +54,28 @@ public class Roads extends JPanel {
     public void initDraw(){
 
         // Default x roads
-        RoadList defRoad1 = new RoadList(0,XLANE_ONE_Y,300,XLANE_ONE_Y,0,1);
+        RoadList defRoad1 = new RoadList(0,XLANE_ONE_Y,300,XLANE_ONE_Y,0,true);
         addRoad(defRoad1);
-        RoadList defRoad2 = new RoadList(300,XLANE_ONE_Y,600,XLANE_ONE_Y,1,1);
+        RoadList defRoad2 = new RoadList(300,XLANE_ONE_Y,600,XLANE_ONE_Y,1,true);
         addRoad(defRoad2);
-        RoadList defRoad3 = new RoadList(600,XLANE_ONE_Y,900,XLANE_ONE_Y,2,1);
+        RoadList defRoad3 = new RoadList(600,XLANE_ONE_Y,900,XLANE_ONE_Y,2,true);
         addRoad(defRoad3);
-        RoadList defRoad4 = new RoadList(900,XLANE_ONE_Y,1200,XLANE_ONE_Y,3,1);
+        RoadList defRoad4 = new RoadList(900,XLANE_ONE_Y,1200,XLANE_ONE_Y,3,true);
         addRoad(defRoad4);
 
         //Default y roads
-        RoadList defRoad5 = new RoadList(300,0, 300, 300, 4,0);
+        RoadList defRoad5 = new RoadList(300,0, 300, 300, 4,false);
         addRoad(defRoad5);
-        RoadList defRoad6 = new RoadList(300,300, 300, 500, 5,0);
+        RoadList defRoad6 = new RoadList(300,300, 300, 500, 5,false);
         addRoad(defRoad6);
-        RoadList defRoad7 = new RoadList(300,500, 300, 700, 6,0);
+        RoadList defRoad7 = new RoadList(300,500, 300, 700, 6,false);
         addRoad(defRoad7);
 
 
 
 
         //Road connections - If a road does not have 3 connections, the remaining values will be filled with the roadID
-        RoadConnections connection1 = new RoadConnections(0,1,0,0);
+        RoadConnections connection1 = new RoadConnections(0,1,5,0);
         roadConnections.add(connection1);
         RoadConnections connection2 = new RoadConnections(1,2,1,1);
         roadConnections.add(connection2);
@@ -133,38 +133,65 @@ public class Roads extends JPanel {
     public void move(){
         for (int i = 0; i < cars.size(); i++) {
             Vehicle v = cars.get(i);
-
-
-            RoadList RoadList = horizontalRoads.get(v.roadID);
+            RoadList RoadList = roadList.get(v.roadID);
             //xTrafficLights xTrafficLights = horizontalTL.get(v.roadID);
-            v.setSpeed(4);
-            if (((v.getX() + v.getLength()) > RoadList.x2) && (!lightStatus(v.roadID))) {
-                v.setSpeed(0);
 
-            }
-            if (((v.getX() + v.getLength() > RoadList.x2) && lightStatus(v.roadID))){
+            if (RoadList.isX) {
                 v.setSpeed(4);
-                //Choose next road
-                int newR = newRoad(v.getRoadID());
-                v.setRoadID(newR);
-                RoadList roadList1 = horizontalRoads.get(v.roadID);
-                if (collision(v, roadList1.x1, v.getY())) {
+                if (((v.getX() + v.getLength()) > RoadList.x2) && (!lightStatus(v.roadID))) {
                     v.setSpeed(0);
-                    v.setX(v.getX() + v.getSpeed());
-//                    System.out.println("COLLISION Error 1");
+
                 }
-                else if (!collision(v, roadList1.x1, v.getY())) {
-                    v.setX(roadList1.x1);
+                if (((v.getX() + v.getLength() > RoadList.x2) && lightStatus(v.roadID))) {
                     v.setSpeed(4);
-                    v.setX(v.getX() + v.getSpeed());
+                    //Choose next road
+                    int newR = newRoad(v.getRoadID());
+                    v.setRoadID(newR);
+                    RoadList roadList1 = roadList.get(v.roadID);
+                    if (collision(v, roadList1.x1, v.getY())) {
+                        v.setSpeed(0);
+                        v.setX(v.getX() + v.getSpeed());
+//                    System.out.println("COLLISION Error 1");
+                    } else if (!collision(v, roadList1.x1, v.getY())) {
+                        v.setX(roadList1.x1);
+                        v.setSpeed(4);
+                        v.setX(v.getX() + v.getSpeed());
+                    }
                 }
-            }
-            if (collision(v, (v.getX() + v.getSpeed()), v.getY())){
-                v.setSpeed(0);
+                if (collision(v, (v.getX() + v.getSpeed()), v.getY())) {
+                    v.setSpeed(0);
 //                System.out.println("COLLISION Error 2");
+                }
+                v.setX(v.getX() + v.getSpeed());
+            } else {
+                v.setSpeed(4);
+                if (((v.getY() + v.getLength()) > RoadList.y2) && (!lightStatus(v.roadID))) {
+                    v.setSpeed(0);
+                }
+                if (((v.getY() + v.getLength() > RoadList.y2) && lightStatus(v.roadID))) {
+                    v.setSpeed(4);
+                    //Choose next road
+                    int newR = newRoad(v.getRoadID());
+                    v.setRoadID(newR);
+                    RoadList roadList1 = roadList.get(v.roadID);
+                    if (collision(v, roadList1.x1, roadList1.y1)) {
+                        v.setSpeed(0);
+//                        v.setX(v.getX() + v.getSpeed());
+//                    System.out.println("COLLISION Error 1");
+                    } else if (!collision(v, v.getX(), roadList1.y1)) {
+                        v.setX(roadList1.x1);
+                        v.setY(roadList1.y1);
+                        v.setSpeed(4);
+                    }
+                }
+                if (collision(v, (v.getX() + v.getSpeed()), v.getY())) {
+                    v.setSpeed(0);
+//                System.out.println("COLLISION Error 2");
+                }
+                v.setY(v.getY() + v.getSpeed());
             }
             //When the speed is determined, make move
-            v.setX(v.getX() + v.getSpeed());
+//            v.setX(v.getX() + v.getSpeed());
         }
     }
 
