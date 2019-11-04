@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Roads extends JPanel {
 
-    private ArrayList<Vehicle> cars = new ArrayList<>();
-    private ArrayList<RoadList> roadList = new ArrayList<>();
-    private ArrayList<TrafficLightsList> xyTL = new ArrayList<>();
-    private ArrayList<RoadConnections> roadConnections = new ArrayList<>();
+    private ArrayList<Vehicle> cars = new ArrayList<>(); //List of cars on the map
+    private ArrayList<RoadList> roadList = new ArrayList<>(); //List of roads
+    private ArrayList<TrafficLightsList> xyTL = new ArrayList<>(); //List of traffic lights
+    private ArrayList<RoadConnections> roadConnections = new ArrayList<>(); //List of road connections
 
     Roads(){
             super();
@@ -16,17 +16,17 @@ public class Roads extends JPanel {
 
     private void addVehicle(Vehicle v){
         cars.add(v);
-    }
+    } //Add cars to the list of cars
 
     private void addRoad(RoadList xRoad){
         roadList.add(xRoad);
-    }
+    } //Add road to list of roads
 
     private void addTL(TrafficLightsList TrafficLightsList){
         xyTL.add(TrafficLightsList);
-    }
+    }//Add traffic light to list
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g){ //Paint the objects that are added to the lists
             super.paintComponent(g);
         for (Vehicle car : cars) {
             car.paint(g);
@@ -41,7 +41,7 @@ public class Roads extends JPanel {
 
     }
 
-    void initDraw(){
+    void initDraw(){ //Objects added as default on the map
         // Default x roads - y = 300
         RoadList defRoad1 = new RoadList(0,300,300,300,0,true);
         addRoad(defRoad1);
@@ -121,17 +121,13 @@ public class Roads extends JPanel {
         addVehicle(defCar2);
         Car defCar3 = new Car(100,295,0);
         addVehicle(defCar3);
-
-//        Bus defBus1 = new Bus(0,300,0);
-//        addVehicle(defBus1);
-
     }
 
-    private boolean lightStatus(int id){
+    private boolean lightStatus(int id){ //Return traffic light status
         TrafficLightsList TrafficLightsList = xyTL.get(id);
         return TrafficLightsList.isRunning();
     }
-    void lightChange(){
+    void lightChange(){ // Change traffic lights
         for (TrafficLights trafficLights : xyTL) {
             if (trafficLights.running) {
                 trafficLights.setRunning(false);
@@ -142,7 +138,7 @@ public class Roads extends JPanel {
     }
 
     //TODO Split up method & call y traversal or x traversal when needed instead
-    void move(){
+    void move(){ // Handle car movement
         for (Vehicle v : cars) {
             RoadList RoadList = roadList.get(v.roadID);
 
@@ -203,7 +199,7 @@ public class Roads extends JPanel {
         }
     }
 
-    // Method which determine the new road id
+    // Determine the new road id
     private Integer newRoad(int ID) {
         int v;
         for (RoadConnections r : roadConnections) {
