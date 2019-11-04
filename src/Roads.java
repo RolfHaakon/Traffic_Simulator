@@ -5,28 +5,25 @@ import java.util.List;
 
 public class Roads extends JPanel {
 
-    ArrayList<Vehicle> cars = new ArrayList<Vehicle>();
-    ArrayList<RoadList> roadList = new ArrayList<RoadList>();
-    ArrayList<TrafficLightsList> xyTL = new ArrayList<TrafficLightsList>();
-    ArrayList<RoadConnections> roadConnections = new ArrayList<RoadConnections>();
+    private ArrayList<Vehicle> cars = new ArrayList<>();
+    private ArrayList<RoadList> roadList = new ArrayList<>();
+    private ArrayList<TrafficLightsList> xyTL = new ArrayList<>();
+    private ArrayList<RoadConnections> roadConnections = new ArrayList<>();
 
-
-
-
-    public Roads(){
+    Roads(){
             super();
     }
 
-    public void addVehicle(Vehicle v){
+    private void addVehicle(Vehicle v){
         cars.add(v);
     }
 
-    public void addRoad(RoadList xRoad){
+    private void addRoad(RoadList xRoad){
         roadList.add(xRoad);
     }
 
 
-    public void addTL(TrafficLightsList TrafficLightsList){
+    private void addTL(TrafficLightsList TrafficLightsList){
         xyTL.add(TrafficLightsList);
     }
 
@@ -34,21 +31,20 @@ public class Roads extends JPanel {
 
     public void paintComponent(Graphics g){
             super.paintComponent(g);
-            for (int i = 0; i < cars.size(); i++){
-                cars.get(i).paint(g);
-            }
-            for (int i = 0; i < roadList.size(); i++){
-                roadList.get(i).paint(g);
-            }
-            for (int i = 0; i < xyTL.size(); i++){
-                xyTL.get(i).paint(g);
-            }
+        for (Vehicle car : cars) {
+            car.paint(g);
+        }
+        for (RoadList list : roadList) {
+            list.paint(g);
+        }
+        for (TrafficLightsList trafficLightsList : xyTL) {
+            trafficLightsList.paint(g);
+        }
 
 
     }
 
-    public void initDraw(){
-
+    void initDraw(){
         // Default x roads - y = 300
         RoadList defRoad1 = new RoadList(0,300,300,300,0,true);
         addRoad(defRoad1);
@@ -59,7 +55,6 @@ public class Roads extends JPanel {
         RoadList defRoad4 = new RoadList(900,300,1200,300,3,true);
         addRoad(defRoad4);
 
-
         //Default y roads - x = 300
         RoadList defRoad5 = new RoadList(300,0, 300, 300, 4,false);
         addRoad(defRoad5);
@@ -68,7 +63,6 @@ public class Roads extends JPanel {
         RoadList defRoad7 = new RoadList(300,500, 300, 700, 6,false);
         addRoad(defRoad7);
 
-
         // Default x road - y = 500
         RoadList defRoad8 = new RoadList(300,500,600,500,7,true);
         addRoad(defRoad8);
@@ -76,9 +70,6 @@ public class Roads extends JPanel {
         addRoad(defRoad9);
         RoadList defRoad10 = new RoadList(900,500,1200,500,9,true);
         addRoad(defRoad10);
-
-
-
 
         //Road connections - If a road does not have 3 connections, the remaining values will be filled with the roadID
         RoadConnections connection1 = new RoadConnections(0,1,5,0);
@@ -100,7 +91,6 @@ public class Roads extends JPanel {
         RoadConnections connection9 = new RoadConnections(9,9,9,9);
         roadConnections.add(connection9);
 
-
         //Default x traffic lights y=300
         TrafficLightsList defTL1 = new TrafficLightsList(300,300,0,false,1);
         addTL(defTL1);
@@ -110,7 +100,6 @@ public class Roads extends JPanel {
         addTL(defTL3);
         TrafficLightsList defTL4 = new TrafficLightsList(1195, 300, 3, true,1);
         addTL(defTL4);
-
 
         //Default y traffic lights
         TrafficLightsList defTL5 = new TrafficLightsList(300,0,4,false,0);
@@ -128,14 +117,12 @@ public class Roads extends JPanel {
         TrafficLightsList defTL10 = new TrafficLightsList(1195, 500, 9, true,1);
         addTL(defTL10);
 
-
-        Car defCar1 = new Car(60,295,0, 'e');
+        // Default cars
+        Car defCar1 = new Car(60,295,0);
         addVehicle(defCar1);
-
-        Car defCar2 = new Car(450,295,2, 'e');
+        Car defCar2 = new Car(450,295,2);
         addVehicle(defCar2);
-
-        Car defCar3 = new Car(100,295,0, 'e');
+        Car defCar3 = new Car(100,295,0);
         addVehicle(defCar3);
 
 //        Bus defBus1 = new Bus(0,300,0);
@@ -143,14 +130,13 @@ public class Roads extends JPanel {
 
     }
 
-    public boolean lightStatus(int id){
+    private boolean lightStatus(int id){
         TrafficLightsList TrafficLightsList = xyTL.get(id);
         return TrafficLightsList.isRunning();
     }
-    public void lightChange(){
-        for (int i = 0; i < xyTL.size(); i++ ){
-            TrafficLights trafficLights = xyTL.get(i);
-            if (trafficLights.running){
+    void lightChange(){
+        for (TrafficLights trafficLights : xyTL) {
+            if (trafficLights.running) {
                 trafficLights.setRunning(false);
             } else {
                 trafficLights.setRunning(true);
@@ -159,9 +145,8 @@ public class Roads extends JPanel {
     }
 
     //TODO Split up method & call y traversal or x traversal when needed instead
-    public void move(){
-        for (int i = 0; i < cars.size(); i++) {
-            Vehicle v = cars.get(i);
+    void move(){
+        for (Vehicle v : cars) {
             RoadList RoadList = roadList.get(v.roadID);
 
             //If the road is horizontal
@@ -176,6 +161,7 @@ public class Roads extends JPanel {
                     int newR = newRoad(v.getRoadID());
                     v.setRoadID(newR);
                     RoadList roadList1 = roadList.get(v.roadID);
+                    // if collision, set speed 0
                     if (collision(v, roadList1.x1, v.getY())) {
                         v.setSpeed(0);
                         v.setX(v.getX() + v.getSpeed());
@@ -192,20 +178,23 @@ public class Roads extends JPanel {
                 v.setX(v.getX() + v.getSpeed());
             } else { //If the road is vertical
                 v.setSpeed(4);
+                // If red light
                 if (((v.getY() + v.getLength()) > RoadList.y2) && (!lightStatus(v.roadID))) {
                     v.setSpeed(0);
                 }
+                // If green light
                 if (((v.getY() + v.getLength() > RoadList.y2) && lightStatus(v.roadID))) {
                     v.setSpeed(4);
                     //Choose next road
                     int newR = newRoad(v.getRoadID());
                     v.setRoadID(newR);
                     RoadList roadList1 = roadList.get(v.roadID);
+                    // If collision
                     if (collision(v, v.getX(), roadList1.y1)) {
                         v.setSpeed(0);
                     } else if (!collision(v, v.getX(), roadList1.y1)) {
                         v.setX(roadList1.x1);
-                        v.setY((roadList1.y1)-8);
+                        v.setY((roadList1.y1) - 8);
                         v.setSpeed(4);
                     }
                 }
@@ -217,38 +206,37 @@ public class Roads extends JPanel {
         }
     }
 
+    // Method which determine the new road id
     private Integer newRoad(int ID) {
         int v;
-        for (int i = 0; i < roadConnections.size(); i++){
-            RoadConnections r = roadConnections.get(i);
+        for (RoadConnections r : roadConnections) {
             if (r.roadID == ID) {
-                List<Integer> l1 = new ArrayList<Integer>();
+                List<Integer> l1 = new ArrayList<>();
                 l1.add(r.c1);
                 l1.add(r.c2);
                 l1.add(r.c3);
-                v = l1.get((int)(Math.random()*3));
+                v = l1.get((int) (Math.random() * 3));
                 if ((r.c1 == r.c2) && (r.c2 == r.c3)) {
                     return 0;
                 }
                 while (v == r.roadID) {
-                    v = l1.get((int)(Math.random()*3));
+                    v = l1.get((int) (Math.random() * 3));
                 }
-                System.out.println("V ==="+v);
                 return v;
             }
         }
         return 0;
     }
 
-    public boolean collision(Vehicle v, int x, int y){
-        for (int i = 0; i <cars.size();i++){ //loop through vehicles
-            Vehicle c = cars.get(i);
+    // Method for detecting collision
+    private boolean collision(Vehicle v, int x, int y){
+        for (Vehicle c : cars) { //loop through vehicles
             if (y == c.getY() || (x == c.getX())) {  //check vehicles in lanes
-                if (c.equals(v) == false) { //make sure the vehicle don't collide with itself
-                    if (x == (c.getX()-8)){
+                if (!c.equals(v)) { //make sure the vehicle don't collide with itself
+                    if (x == (c.getX() - 8)) {
                         return true;
                     }
-                    if (y == (c.getY()-8)){
+                    if (y == (c.getY() - 8)) {
                         return true;
                     }
                 }
@@ -258,8 +246,9 @@ public class Roads extends JPanel {
     }
 
 
-    public void spawnCar() {
-        Car defCar10 = new Car(40,295,0, 'e');
+    // Method to spawn cars
+    void spawnCar() {
+        Car defCar10 = new Car(0,295,0);
         addVehicle(defCar10);
     }
 }

@@ -5,16 +5,14 @@ public class Vehicle {
     int x;
     int y;
     int roadID;
-    char Direction;
 
     int length = 0;
     int width = 0;
     int speed = 0;
-    public Vehicle(int x, int y, int roadID, char Direction) {
+    Vehicle(int x, int y, int roadID) {
         this.x = x;
         this.y = y;
         this.roadID = roadID;
-        this.Direction = Direction;
     }
 
     //Will use paint method in child classes
@@ -22,38 +20,38 @@ public class Vehicle {
 
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
-    public void setX(int x) {
+    void setX(int x) {
         this.x = x;
     }
 
-    public int getY() {
+    int getY() {
         return y;
     }
 
-    public void setY(int y) {
+    void setY(int y) {
         this.y = y;
     }
 
-    public int getSpeed() {
+    int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    public int getLength() {
+    int getLength() {
         return length;
     }
 
-    public int getRoadID() {
+    int getRoadID() {
         return roadID;
     }
 
-    public void setRoadID(int roadID) {
+    void setRoadID(int roadID) {
         this.roadID = roadID;
     }
 }

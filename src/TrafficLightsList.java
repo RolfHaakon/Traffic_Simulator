@@ -1,10 +1,10 @@
 import java.awt.*;
 
 public class TrafficLightsList extends TrafficLights {
-    int roadID;
-    int isX;
+    private int roadID;
+    private int isX;
 
-    public TrafficLightsList(int x, int y, int roadID, boolean running, int isX) {
+    TrafficLightsList(int x, int y, int roadID, boolean running, int isX) {
         super(x, y, roadID, running);
         this.running = running;
         this.roadID = roadID;

@@ -4,24 +4,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TrafficSimulation implements ActionListener, Runnable {
-    String fileName = "Untitled";
-    JFrame frame = new JFrame("Traffic Simulation");
-    Roads roads = new Roads();
-    JButton start = new JButton("Start");
-    JButton stop = new JButton("Stop");
-    Container buttons = new Container();
+    private JFrame frame = new JFrame("Traffic Simulation");
+    private Roads roads = new Roads();
+    private JButton start = new JButton("Start");
+    private JButton stop = new JButton("Stop");
 
-    boolean running = false;
-    static boolean xTL = false;
-    int count = 0;
+    private boolean running = false;
+    private int count = 0;
 
 
 
-    public TrafficSimulation(){
+    private TrafficSimulation(){
         frame.setSize(1200,800);
         frame.setLayout(new BorderLayout());
         frame.add(roads, BorderLayout.CENTER);
 
+        Container buttons = new Container();
         buttons.setLayout(new GridLayout(1,2));
         buttons.add(start);
         start.addActionListener(this);
@@ -45,9 +43,9 @@ public class TrafficSimulation implements ActionListener, Runnable {
     }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    public void actionPerformed(ActionEvent actionEvent) { //Create thread
         if (actionEvent.getSource().equals(start)){
-            if (running == false){
+            if (!running){
                 running = true;
                 Thread thread = new Thread(this);
                 thread.start();
@@ -59,8 +57,8 @@ public class TrafficSimulation implements ActionListener, Runnable {
     }
 
     @Override
-    public void run() {
-        while (running == true) {
+    public void run() { //Use the thread to update the map
+        while (running) {
             roads.move();
             eventHandler();
             frame.repaint();
@@ -72,15 +70,13 @@ public class TrafficSimulation implements ActionListener, Runnable {
         }
     }
 
-    public void eventHandler() {
+    private void eventHandler() { //Change traffic light and spawn cars at some set rate
         count++;
         if (count == 80) {
             roads.lightChange();
-//            System.out.println("Traffic light change");
             count = 0;
         }
         if (count % 50 == 0){
-//            System.out.println("CarSpawn");
             roads.spawnCar();
         }
     }
