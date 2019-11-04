@@ -22,12 +22,9 @@ public class Roads extends JPanel {
         roadList.add(xRoad);
     }
 
-
     private void addTL(TrafficLightsList TrafficLightsList){
         xyTL.add(TrafficLightsList);
     }
-
-
 
     public void paintComponent(Graphics g){
             super.paintComponent(g);
