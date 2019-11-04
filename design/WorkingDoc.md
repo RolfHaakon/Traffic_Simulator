@@ -1,17 +1,10 @@
-### Current TODO list
-* Figure out which GUI framework to use
-
-
 ##### Problem specification
 
-The program is the prototype of a traffic simulator which aims to demonstrate traffic flow. The program consist of one 
-car, two roads, and a traffic light placed in between. Once the program starts the car will move from the beginning 
-of the first road towards the end, where the traffic light is placed. When the traffic light is green, the car will
-cross over to road 2, drive down to the end of the road, before being placed back at starting position on road 1. 
-
-This will act as a simulation which can highlight shortcomings in road design, visualizing points of congestion.
+The program is a prototype of a traffic simulator which aims to demonstrate traffic flow. The program consist of a 
+set of roads, traffic lights and cars.  
+The cars will drive according to traffic lights and respawn at road 0 when the end of the map is reached. 
+There are collision handling for vehicles. 
 
 
-##### Note
-
-The program contain methods not yet in use, which are planned to be implemented for A2. 
+Per this release the traffic is one way, and changes to the map has to be manually done by adding lines of code.
+The current version is only good for simulating traffic flow in one direction. 
