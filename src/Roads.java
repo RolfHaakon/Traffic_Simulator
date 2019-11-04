@@ -7,7 +7,7 @@ public class Roads extends JPanel {
 
     ArrayList<Vehicle> cars = new ArrayList<Vehicle>();
     ArrayList<RoadList> roadList = new ArrayList<RoadList>();
-    ArrayList<TrafficLightsList> horizontalTL = new ArrayList<TrafficLightsList>();
+    ArrayList<TrafficLightsList> xyTL = new ArrayList<TrafficLightsList>();
     ArrayList<RoadConnections> roadConnections = new ArrayList<RoadConnections>();
 
 
@@ -30,8 +30,8 @@ public class Roads extends JPanel {
     }
 
 
-    public void addxTL(TrafficLightsList TrafficLightsList){
-        horizontalTL.add(TrafficLightsList);
+    public void addTL(TrafficLightsList TrafficLightsList){
+        xyTL.add(TrafficLightsList);
     }
 
 
@@ -44,8 +44,8 @@ public class Roads extends JPanel {
             for (int i = 0; i < roadList.size(); i++){
                 roadList.get(i).paint(g);
             }
-            for (int i = 0; i < horizontalTL.size(); i++){
-                horizontalTL.get(i).paint(g);
+            for (int i = 0; i < xyTL.size(); i++){
+                xyTL.get(i).paint(g);
             }
 
 
@@ -83,22 +83,29 @@ public class Roads extends JPanel {
         roadConnections.add(connection3);
         RoadConnections connection4 = new RoadConnections(3,3,3,3);
         roadConnections.add(connection4);
+        RoadConnections connection5 = new RoadConnections(5,6,5,5);
+        roadConnections.add(connection5);
+        RoadConnections connection6 = new RoadConnections(6,6,6,6);
+        roadConnections.add(connection6);
+
 
         //Default x traffic lights
         TrafficLightsList defTL1 = new TrafficLightsList(300,300,0,false,1);
-        addxTL(defTL1);
+        addTL(defTL1);
         TrafficLightsList defTL2 = new TrafficLightsList(600, 300,1,true,1);
-        addxTL(defTL2);
+        addTL(defTL2);
         TrafficLightsList defTL3 = new TrafficLightsList(900, 300, 2, false,1);
-        addxTL(defTL3);
+        addTL(defTL3);
         TrafficLightsList defTL4 = new TrafficLightsList(1195, 300, 3, true,1);
-        addxTL(defTL4);
+        addTL(defTL4);
 
         //Default y traffic lights
-        TrafficLightsList defTL5 = new TrafficLightsList(300,500,4,false,0);
-        addxTL(defTL5);
-        TrafficLightsList defTL6 = new TrafficLightsList(300,700,5,false,0);
-        addxTL(defTL6);
+        TrafficLightsList defTL5 = new TrafficLightsList(300,0,4,false,0);
+        addTL(defTL5);
+        TrafficLightsList defTL6 = new TrafficLightsList(300,500,5,false,0);
+        addTL(defTL6);
+        TrafficLightsList defTL7 = new TrafficLightsList(300,700,6,false,0);
+        addTL(defTL7);
 
         Car defCar1 = new Car(60,295,0, 'e');
         addVehicle(defCar1);
@@ -115,12 +122,12 @@ public class Roads extends JPanel {
     }
 
     public boolean lightStatus(int id){
-        TrafficLightsList TrafficLightsList = horizontalTL.get(id);
+        TrafficLightsList TrafficLightsList = xyTL.get(id);
         return TrafficLightsList.isRunning();
     }
     public void lightChange(){
-        for (int i = 0; i < horizontalTL.size(); i++ ){
-            TrafficLights trafficLights = horizontalTL.get(i);
+        for (int i = 0; i < xyTL.size(); i++ ){
+            TrafficLights trafficLights = xyTL.get(i);
             if (trafficLights.running){
                 trafficLights.setRunning(false);
             } else {
@@ -134,13 +141,12 @@ public class Roads extends JPanel {
         for (int i = 0; i < cars.size(); i++) {
             Vehicle v = cars.get(i);
             RoadList RoadList = roadList.get(v.roadID);
-            //xTrafficLights xTrafficLights = horizontalTL.get(v.roadID);
 
+            //If the road is horizontal
             if (RoadList.isX) {
                 v.setSpeed(4);
                 if (((v.getX() + v.getLength()) > RoadList.x2) && (!lightStatus(v.roadID))) {
                     v.setSpeed(0);
-
                 }
                 if (((v.getX() + v.getLength() > RoadList.x2) && lightStatus(v.roadID))) {
                     v.setSpeed(4);
@@ -160,10 +166,9 @@ public class Roads extends JPanel {
                 }
                 if (collision(v, (v.getX() + v.getSpeed()), v.getY())) {
                     v.setSpeed(0);
-//                System.out.println("COLLISION Error 2");
                 }
                 v.setX(v.getX() + v.getSpeed());
-            } else {
+            } else { //If the road is vertical
                 v.setSpeed(4);
                 if (((v.getY() + v.getLength()) > RoadList.y2) && (!lightStatus(v.roadID))) {
                     v.setSpeed(0);
@@ -186,7 +191,6 @@ public class Roads extends JPanel {
                 }
                 if (collision(v, (v.getX() + v.getSpeed()), v.getY())) {
                     v.setSpeed(0);
-//                System.out.println("COLLISION Error 2");
                 }
                 v.setY(v.getY() + v.getSpeed());
             }
