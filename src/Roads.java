@@ -185,7 +185,7 @@ public class Roads extends JPanel {
 //                    System.out.println("COLLISION Error 1");
                     } else if (!collision(v, v.getX(), roadList1.y1)) {
                         v.setX(roadList1.x1);
-                        v.setY(roadList1.y1);
+                        v.setY((roadList1.y1)-8);
                         v.setSpeed(4);
                     }
                 }
@@ -210,14 +210,13 @@ public class Roads extends JPanel {
                 l1.add(r.c3);
                 v = l1.get((int)(Math.random()*3));
                 if ((r.c1 == r.c2) && (r.c2 == r.c3)) {
-                    System.out.println("backtostart");
                     return 0;
                 }
                 while (v == r.roadID) {
                     v = l1.get((int)(Math.random()*3));
-                    System.out.println("Reroll " +v);
+//                    System.out.println("Reroll " +v);
                 }
-                System.out.println("V ==="+v);
+//                System.out.println("V ==="+v);
                 return v;
             }
         }
@@ -231,6 +230,10 @@ public class Roads extends JPanel {
                 if (c.equals(v) == false) { //make sure the vehicle don't collide with itself
                     if (x == (c.getX()-8)){
 //                        System.out.println("COLLISION X - TRUE");
+                        return true;
+                    }
+                    if (y == (c.getY()-8)){
+                        System.out.println("Y Collision");
                         return true;
                     }
 //                    if (v.getX() < c.getX() + c.getLength() + 5 && //check each vehicles left side is to others right side
