@@ -1,4 +1,5 @@
 # TrafficSimulator
-A traffic simulator in Java for the programming 3 course
+Traffic simulator written in Java. 
 
-Some classes are currently empty and will be implemented at a later stage. 
+
+![](design/trafficsim.png)
